@@ -1,0 +1,31 @@
+version: '3.5'
+
+networks:
+  vault:
+    name: vault
+    driver: bridge
+
+services:
+  vault:
+    image: vault
+    container_name: vault.infra.local
+    restart: always
+    entrypoint: /bin/vault
+    command:
+      - server
+      - -config=/vault/config/config.hcl
+    environment: {}
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - /mnt/data/infra/vault/config:/vault/config
+      - /mnt/data/infra/vault/file:/vault/file
+      - /mnt/data/infra/vault/logs:/vault/logs
+      - /mnt/data/infra/vault/certs:/vault/certs
+    networks:
+      - vault
+    ports:
+      - 8200:8200
+    expose:
+      - "8200"
+
