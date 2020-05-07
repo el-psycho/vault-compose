@@ -7,7 +7,7 @@ networks:
 
 services:
   vault:
-    image: vault
+    image: vault:1.4.1
     container_name: vault.infra.local
     restart: always
     entrypoint: /bin/vault
